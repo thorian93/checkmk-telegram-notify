@@ -1,12 +1,10 @@
-# Check_MK Telegram notification
-<img src="images/telegram_notification_example.png" alt="Telegram notification example" width="400" align="right"/>
-Telegram has long been one of my real-time communication media. It is obvious to output monitoring messages for server and network components as alarm messages. There are several scripts for this on the internet, but most of them are written in Python, many of them have problems with Python3 and its libraries. Instead of spending hours and hours with Python, I decided to use a scripting language I know and write a Linux Bash script for it.
+# Checkmk Telegram notification
 
-The following Script is for Check_MK, I have used it exclusively with the RAW version 1.6.0_p18.
+Telegram has long been one of my real-time communication media. It is obvious to output monitoring messages for server and network components as alarm messages. There are several scripts for this on the internet, but most of them are written in Python, many of them have problems with Python3 and its libraries. Instead of spending hours and hours with Python, I decided to use a scripting language I know and write a Linux Bash script for it.
 
 <!-- TOC -->
 
-- [Check_MK Telegram notification](#check_mk-telegram-notification)
+- [Checkmk Telegram notification](#check_mk-telegram-notification)
     - [REQUIREMENTS](#requirements)
     - [INSTALLATION](#installation)
     - [CHECK_MK CONFIGURATION](#check_mk-configuration)
@@ -14,8 +12,9 @@ The following Script is for Check_MK, I have used it exclusively with the RAW ve
 
 <!-- /TOC -->
 
-## REQUIREMENTS
-In order for Check_MK to send alerts (notifications) to the Telegram Messenger, we need
+## Requirements
+
+In order for Checkmk to send alerts (notifications) to the Telegram Messenger, we need
 
 * a bot
 * a username for the bot
@@ -24,47 +23,47 @@ In order for Check_MK to send alerts (notifications) to the Telegram Messenger, 
 
 There are a lot of good instructions for this on the Internet, so this is not part of this documentation.
 
-Additionally for the XML-based configuration the command line tool ```xmllint``` is used, which requires the following packages on the Linux system:
-```
-apt install libxml2-utils # Debian/Raspbian-based distributions
-yum install libxml2-utils # Redhat/CentOS-based distributions
-```
-
-## INSTALLATION
-Change to your Check_MK site user
-```
-su - mysite
-```
+## Installation
+Change to your Checkmk site user
+    
+    su - mysite
 
 Change to the notification directory
-```
-cd ~/local/share/check_mk/notifications/
-```
+
+    cd ~/local/share/check_mk/notifications/
 
 Download the Telegram notify script from Git repository
-```
-git clone https://github.com/filipnet/checkmk-telegram-notify.git .
-```
 
-Adjusting the config.xml
-```
-cd /opt/omd/sites/mysite/local/share/check_mk/notifications/
-mv config.xml.sample config.xml
-```
+    git clone https://github.com/thorian93/checkmk-telegram-notify.git .
 
-Inside your API Token and Chat/Group-ID
-```
-<telegram_api_token>TELEGRAM_API_TOKEN_WITHOUT_BOT_PREFIX</telegram_api_token>
-<telegram_chat_id>TELEGRAM_GROUP_OR_CHAT-ID</telegram_chat_id>
-```
+Adjusting your API Token and Chat/Group-ID in `check_mk_telegram-notify.sh`
+
+    # Telegram API Token
+    # Find telegram bot named "@botfarther", type /mybots, select your bot and select "API Token" to see your current token
+    TOKEN='CHANGEME'
+
+    # Telegram Chat-ID or Group-ID
+    # Open "https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates" inside your Browser and send a HELLO to your bot, refresh side
+    # If you leave 'CHANGEME' this script will use the checkmk custom attribute 'TELEGRAM_CHAT_ID' - See README.md for more information
+    CHAT_ID='CHANGEME'
+
+To use the custom attribute you need to go to  
+`WATO → Users → Custom attributes → New attribute`  
+and set the following values:
+- **Name**: `TELEGRAM_CHAT_ID`
+- **Topic**: `Personal Settings`
+- **Data type**: `Simple Text`
+
+**Title** can be chosen freely but keep that in mind. Now go to   
+`WATO → Users → Edit your User`  
+and enter the Chat ID in the new field with the name you gave to **Title**.
 
 Give the script execution permissions
-```
-chmod +x check_mk_telegram-notify.sh
-```
 
-## CHECK_MK CONFIGURATION
-Now you can create your own alarm rules in Check_MK.
+    chmod +x check_mk_telegram-notify.sh
+
+## Checkmk Configuration
+Now you can create your own alarm rules in Checkmk.
 
 ```WATO → Notifications → New Rule → Notification Method → Push Notification (using Telegram)```
 
