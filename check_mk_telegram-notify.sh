@@ -1,5 +1,5 @@
 #!/bin/bash
-# Push Notification (using Telegram)
+# Telegram (Shell)
 #
 # Script Name   : check_mk_telegram-notify.sh
 # Description   : Send Check_MK notifications by Telegram

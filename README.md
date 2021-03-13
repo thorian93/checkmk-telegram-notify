@@ -65,13 +65,13 @@ Give the script execution permissions
 ## Checkmk Configuration
 Now you can create your own alarm rules in Checkmk.
 
-```WATO → Notifications → New Rule → Notification Method → Push Notification (using Telegram)```
+```WATO → Notifications → New Rule → Notification Method → Telegram (Shell)```
 
 First create a clone of your existing mail notification rule
 
 <img src="images/global_notification_rules_create_clone.png" alt="Create clone" width="600"/>
 
-Change the description and select "Push Notification (by Telegram)", no further settings are required for this.
+Change the description and select "Telegram (Shell)", no further settings are required for this.
 
 <img src="images/create_new_notification_rule_for_telegram.png" alt="Adjust settings" width="600"/>
 
