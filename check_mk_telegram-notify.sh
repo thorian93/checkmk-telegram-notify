@@ -88,8 +88,9 @@ fi
 # Compose the final message
 MESSAGE="
 ${HEADER}
-*Output*: ${OUTPUT}
 *Address*: ${ADDRESS}
+
+*Output*: ${OUTPUT}
 "
 
 # Replace special characters (this could be nicer but it works reasonably)
